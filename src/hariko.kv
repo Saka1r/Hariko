@@ -1,0 +1,29 @@
+# Hariko 
+# author: Saka1r
+# MIT License
+
+<BaseMDNavigationItem>
+
+    MDNavigationItemIcon:
+        icon: root.icon
+
+    MDNavigationItemLabel:
+        text: root.text
+
+MDBoxLayout:
+	orientation: "vertical"
+
+	MDScreenManager:
+		id: screen_manager
+		MDScreen:
+			id: home
+			name: "home"
+	MDNavigationBar:
+
+		MDNavigationItem:
+
+			MDNavigationItemIcon:
+				icons: "cog"
+
+			MDNavigationItemLabel:
+				text: "Hello"
