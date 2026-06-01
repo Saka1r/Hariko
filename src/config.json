@@ -1,0 +1,7 @@
+{
+    "theme": "Dark",
+    "gguf_path": "Llama GGUF path",
+    "whisper_lang": "auto",
+    "whisper_model": "large-v3",
+    "whisper_computing_device": "cpu"
+}

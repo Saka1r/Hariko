@@ -11,7 +11,43 @@ MDBoxLayout:
 			md_bg_color: self.theme_cls.backgroundColor
             id: home
             name: "home"
-            # Здесь размещайте контент экрана
+			MDLabel:
+				theme_font_size: "Custom"
+				text: "HARIKO"
+				font_size: "50sp"
+				adaptive_height: True
+				padding: "10dp", "20dp", 0, 0
+				pos_hint: {"top": 1}
+            MDButton:
+				style: "tonal"
+				theme_width: "Custom"
+				height: "56dp"
+				size_hint_x: .5
+				pos_hint: {"center_x": .25}
+
+				MDButtonIcon:
+					x: text.x - (self.width + dp(10))
+					icon: "plus"
+
+				MDButtonText:
+					id: text
+					text: "video"
+					pos_hint: {"center_x": .5, "center_y": .5}
+			MDButton:
+				style: "tonal"
+				theme_width: "Custom"
+				height: "56dp"
+				size_hint_x: .5
+				pos_hint: {"center_x": 0.75}
+
+				MDButtonIcon:
+					x: text.x - (self.width + dp(10))
+					icon: "plus"
+
+				MDButtonText:
+					id: text
+					text: "audio"
+					pos_hint: {"center_x": .5, "center_y": .5}
 		MDScreen:
 			md_bg_color: self.theme_cls.backgroundColor
             id: settings
@@ -45,6 +81,7 @@ MDBoxLayout:
 							MDListItemLeadingIcon:
 								icon: "robot-angry"
 							MDListItemHeadlineText:
+								id: gguf_path_widget
 								text: "Llama GGUF path"
 							MDTextField:
 								adaptive_height: True
@@ -58,22 +95,37 @@ MDBoxLayout:
 							MDListItemSupportingText:
         						text: "Defualt multi-languge (auto)"
 							MDTextField:
+								id: wp_lang_widget
 								adaptive_height: True
     							mode: "outlined"
 								size_hint: 1, 1
 								text: "auto"
 						MDListItem:
 							MDListItemLeadingIcon:
-								icon: "folder"
+								icon: "robot-angry"
 							MDListItemHeadlineText:
 								text: "Whisper model"
 							MDListItemSupportingText:
         						text: "Models: tiny, base, small, medium, large-v3"
 							MDTextField:
+								id: wp_model_widget
 								adaptive_height: True
     							mode: "outlined"
 								size_hint: 1, 1
 								text: "large-v3"
+						MDListItem:
+							MDListItemLeadingIcon:
+								icon: "cpu-64-bit"
+							MDListItemHeadlineText:
+								text: "Whisper computing device"
+							MDListItemSupportingText:
+        						text: "cpu or cuda"
+							MDTextField:
+								id: wp_cd_widget
+								adaptive_height: True
+    							mode: "outlined"
+								size_hint: 1, 1
+								text: "cpu"
 				MDButton:
 					pos_hint: {"x": 0.8}
 					height: "56dp"
@@ -82,6 +134,8 @@ MDBoxLayout:
 					font_size: "30sp"
 					adaptive_height: True
 					style: "elevated"
+					on_press:
+						app.update_config()
 					MDButtonText:
 						text: "Save config"
 							
