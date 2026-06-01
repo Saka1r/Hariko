@@ -2,28 +2,104 @@
 # author: Saka1r
 # MIT License
 
-<BaseMDNavigationItem>
-
-    MDNavigationItemIcon:
-        icon: root.icon
-
-    MDNavigationItemLabel:
-        text: root.text
-
 MDBoxLayout:
-	orientation: "vertical"
+    orientation: "vertical"
 
-	MDScreenManager:
-		id: screen_manager
+    MDScreenManager:
+        id: screen_manager
+        MDScreen:
+			md_bg_color: self.theme_cls.backgroundColor
+            id: home
+            name: "home"
+            # Здесь размещайте контент экрана
 		MDScreen:
-			id: home
-			name: "home"
-	MDNavigationBar:
+			md_bg_color: self.theme_cls.backgroundColor
+            id: settings
+            name: "settings"
+			BoxLayout:
+				orientation: "vertical"
+				MDLabel:
+					theme_font_size: "Custom"
+					text: "Settings"
+					font_size: "50sp"
+					adaptive_height: True
+					padding: "10dp", "20dp", 0, 0
+					pos_hint: {"top": 1}
+				MDScrollView:
+					do_scroll_x: False
+					MDBoxLayout:
+						orientation: "vertical"
+						adaptive_height: True
+						spacing: dp(12)
+						MDListItem:
+							MDListItemLeadingIcon:
+								icon: "theme-light-dark"
+
+							MDListItemHeadlineText:
+								text: "Light theme"
+
+							MDListItemTrailingCheckbox:
+								active: False
+								on_active: app.switch_theme(self.active)
+						MDListItem:
+							MDListItemLeadingIcon:
+								icon: "robot-angry"
+							MDListItemHeadlineText:
+								text: "Llama GGUF path"
+							MDTextField:
+								adaptive_height: True
+    							mode: "outlined"
+								size_hint: 1, 1
+						MDListItem:
+							MDListItemLeadingIcon:
+								icon: "robot-angry"
+							MDListItemHeadlineText:
+								text: "Whisper language"
+							MDListItemSupportingText:
+        						text: "Defualt multi-languge (auto)"
+							MDTextField:
+								adaptive_height: True
+    							mode: "outlined"
+								size_hint: 1, 1
+								text: "auto"
+						MDListItem:
+							MDListItemLeadingIcon:
+								icon: "folder"
+							MDListItemHeadlineText:
+								text: "Whisper model"
+							MDListItemSupportingText:
+        						text: "Models: tiny, base, small, medium, large-v3"
+							MDTextField:
+								adaptive_height: True
+    							mode: "outlined"
+								size_hint: 1, 1
+								text: "large-v3"
+				MDButton:
+					pos_hint: {"x": 0.8}
+					height: "56dp"
+    				size_hint_x: .5
+					style: "tonal"
+					font_size: "30sp"
+					adaptive_height: True
+					style: "elevated"
+					MDButtonText:
+						text: "Save config"
+							
+
+    MDNavigationBar:
+		on_switch_tabs: app.on_switch_tabs(*args)
+
+        MDNavigationItem:
+			active: True
+            MDNavigationItemIcon:
+                icon: "home"
+            MDNavigationItemLabel:
+                text: "home"
 
 		MDNavigationItem:
-
+			active: True
 			MDNavigationItemIcon:
-				icons: "cog"
-
+				icon: "cog"
 			MDNavigationItemLabel:
-				text: "Hello"
+				text: "settings"
+
