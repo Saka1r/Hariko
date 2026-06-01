@@ -12,19 +12,26 @@ from kivymd.app import MDApp
 from kivy.lang.builder import Builder
 
 from kivymd.uix.navigationbar import MDNavigationBar, MDNavigationItem
+from kivy.core.window import Window
 
 import json 
+
+Window.size = (500, 700)
 
 class Hariko(MDApp):
 
     def config_to_settings(self):
+        if self.theme_cls.theme_style == "Light":
+            self.root.ids.theme_checkbox_widget.active = True
+        else:
+            self.root.ids.theme_checkbox_widget.active = False
         self.root.ids.gguf_path_widget.text = self.gguf_path
         self.root.ids.wp_lang_widget.text = self.wp_lang
         self.root.ids.wp_model_widget.text = self.wp_model
         self.root.ids.wp_cd_widget.text = self.wp_cd
 
     def upload_config(self):
-        with open("config.json", "r") as f:
+        with open("config/config.json", "r") as f:
             CONFIG = json.load(f)
 
         self.theme_cls.theme_style = CONFIG["theme"]
@@ -46,7 +53,7 @@ class Hariko(MDApp):
                   "whisper_lang": self.wp_lang, "whisper_model": self.wp_model,
                   "whisper_computing_device": self.wp_cd}
 
-        with open("config.json", "w") as f:
+        with open("config/config.json", "w") as f:
             json.dump(CONFIG, f, indent=4, ensure_ascii=False)    
 
     def on_switch_tabs(
@@ -68,7 +75,7 @@ class Hariko(MDApp):
         self.upload_config()
 
     def build(self):
-
+        self.icon = "config/anime.png"
         self.theme_cls.theme_style_switch_animation = True
 
         self.theme_cls.theme_style = "Dark"
