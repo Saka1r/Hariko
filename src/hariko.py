@@ -11,14 +11,55 @@
 from kivymd.app import MDApp
 from kivy.lang.builder import Builder
 
+from kivymd.uix.filemanager import MDFileManager
+from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
+from kivy.metrics import dp
+
 from kivymd.uix.navigationbar import MDNavigationBar, MDNavigationItem
 from kivy.core.window import Window
 
 import json 
+import os
 
 Window.size = (500, 700)
 
 class Hariko(MDApp):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Window.bind(on_keyboard=self.events)
+        self.manager_open = False
+        self.file_manager = MDFileManager(
+            exit_manager=self.exit_manager, select_path=self.select_path
+        )
+    # --- FILE MANAGER ---
+    def file_manager_open(self):
+        self.file_manager.show_disks()
+        self.manager_open = True
+
+    def select_path(self, path: str):
+
+        self.exit_manager()
+        MDSnackbar(
+            MDSnackbarText(
+                text=path,
+            ),
+            y=dp(24),
+            pos_hint={"center_x": 0.5},
+            size_hint_x=0.8,
+        ).open()
+
+        self.path = path
+
+    def exit_manager(self, *args):
+        self.manager_open = False
+        self.file_manager.close()
+
+    def events(self, instance, keyboard, keycode, text, modifiers):
+        if keyboard in (1001, 27):
+            if self.manager_open:
+                self.file_manager.back()
+        return True
+    # --- FILE MANAGER ---
 
     def config_to_settings(self):
         if self.theme_cls.theme_style == "Light":
@@ -70,6 +111,9 @@ class Hariko(MDApp):
             self.theme_cls.theme_style = "Light"
         else:
             self.theme_cls.theme_style = "Dark"
+
+    def start_core(self):
+        pass
 
     def on_start(self):
         self.upload_config()
