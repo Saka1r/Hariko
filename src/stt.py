@@ -2,10 +2,16 @@
 #author: Saka1r
 # MIT License
 
-class Whisper():
-    def __init__(self):
-        pass
+import whisper
 
-    def load_wav(self):
-        pass
+import tools
 
+def stt_run(target=None):
+    CONFIG = tools.get_config()
+    
+    model = whisper.load_model(CONFIG["whisper_model"])
+
+    result = model.transcribe(target)
+
+    print(result["text"])
+    tools.write_to_file(result["text"])

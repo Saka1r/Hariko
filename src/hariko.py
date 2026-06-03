@@ -19,7 +19,7 @@ from kivymd.uix.navigationbar import MDNavigationBar, MDNavigationItem
 from kivy.core.window import Window
 
 import json 
-import os
+import stt
 
 Window.size = (500, 700)
 
@@ -111,9 +111,9 @@ class Hariko(MDApp):
             self.theme_cls.theme_style = "Light"
         else:
             self.theme_cls.theme_style = "Dark"
-
+    # will adding threading 
     def start_core(self):
-        pass
+      stt.stt_run(self.path)
 
     def on_start(self):
         self.upload_config()
