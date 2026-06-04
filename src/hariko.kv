@@ -150,6 +150,16 @@ MDBoxLayout:
 					MDButtonText:
 						text: "Save config"
 							
+		MDScreen:
+			md_bg_color: self.theme_cls.backgroundColor
+			id: output
+			name: "output"
+			MDScrollView:
+				do_scroll_x: False
+				MDLabel:
+					id: output_text_widget
+					text: ""
+			
 
     MDNavigationBar:
 		on_switch_tabs: app.on_switch_tabs(*args)

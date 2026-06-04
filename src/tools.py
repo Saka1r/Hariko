@@ -10,6 +10,12 @@ def get_config():
 
     return CONFIG
 
+def get_output():
+    with open("output.txt", "r", encoding="utf-8") as f:
+        out = f.read()
+
+    return out
+
 def write_to_file(file):
     with open("output.txt", "w", encoding="utf-8") as f:
         f.write(file)

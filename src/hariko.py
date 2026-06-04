@@ -34,7 +34,7 @@ from threading import Thread
 
 # Local Modules
 import stt
-
+import tools
 
 Window.size = (500, 700)
 
@@ -163,6 +163,14 @@ class Hariko(MDApp):
         """Переключатель светлой/тёмной темы"""
         self.theme_cls.theme_style = "Light" if active else "Dark"
 
+    def screen(self, name) -> None:
+        self.root.ids.screen_manager.current = name
+
+    def go_to_output(self) -> None:
+        out = tools.get_output()
+        self.root.ids.output_text_widget.text = out
+        self.screen("output")
+
     # ─────────────────────────────────────────────────────────
     # ⚡ Core Processing Pipeline (Thread-Safe)
     def start_core(self) -> None:
@@ -202,7 +210,7 @@ class Hariko(MDApp):
             self.dialog.dismiss()
 
         button = MDButton(
-            MDButtonText(text="Discard"),
+            MDButtonText(text="Go"),
             style="text",
         )
 
@@ -218,7 +226,7 @@ class Hariko(MDApp):
             ),
         )
 
-        button.bind(on_release=lambda x: self.dialog.dismiss())
+        button.bind(on_release=lambda x: (self.dialog.dismiss(), self.go_to_output()))
         self.dialog.open()
 
     # ─────────────────────────────────────────────────────────
@@ -226,7 +234,7 @@ class Hariko(MDApp):
     def on_start(self) -> None:
         """Вызывается после build(), когда дерево виджетов готово"""
         self.upload_config()
-        # self.show_success_dialog()
+        self.show_success_dialog()
 
     def build(self) -> Widget:
         """Инициализация приложения"""
