@@ -234,7 +234,7 @@ class Hariko(MDApp):
     def on_start(self) -> None:
         """Вызывается после build(), когда дерево виджетов готово"""
         self.upload_config()
-        self.show_success_dialog()
+        #self.show_success_dialog()
 
     def build(self) -> Widget:
         """Инициализация приложения"""
